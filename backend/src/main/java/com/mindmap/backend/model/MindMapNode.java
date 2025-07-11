@@ -1,36 +1,154 @@
 // Node.java
 package com.mindmap.backend.model;
 
+import java.util.UUID;
+
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 
+import java.time.LocalDate;
+
 @Node("Node")
 public class MindMapNode {
+
     @Id
-    private String id;
-    private String label;
+    private String id;  // You can keep String and generate UUID manually
+    
 
-    public MindMapNode() {}
-    public MindMapNode(String id, String label) {
+    private String mainTopic;
+    private boolean practiceDone;
+    private String pastPapers;
+    private int dueInDays;
+    private String relatedLinks;
+    private String colorTag;
+    private String blurbNotes;
+
+    private String description;
+    private String imageUrl;
+
+    private LocalDate dateCreated;
+    private String mindMapName;
+
+    public MindMapNode() {
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public MindMapNode(String id, String mainTopic, boolean practiceDone, String pastPapers, int dueInDays,
+                       String relatedLinks, String colorTag, String blurbNotes,
+                       String description, String imageUrl, LocalDate dateCreated,
+                       String mindMapName) {
         this.id = id;
-        this.label = label;
+        //this.id = UUID.randomUUID().toString();
+        this.mainTopic = mainTopic;
+        this.practiceDone = practiceDone;
+        this.pastPapers = pastPapers;
+        this.dueInDays = dueInDays;
+        this.relatedLinks = relatedLinks;
+        this.colorTag = colorTag;
+        this.blurbNotes = blurbNotes;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.dateCreated = dateCreated;
+        this.mindMapName = mindMapName;
     }
-    // getters/setters
 
-public String getId() {
+    // Getters and setters here...
+
+    public String getId() {
         return id;
-    }
-
-    public String getLabel() {
-        return label;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public String getMainTopic() {
+        return mainTopic;
     }
 
+    public void setMainTopic(String mainTopic) {
+        this.mainTopic = mainTopic;
+    }
+
+    public boolean isPracticeDone() {
+        return practiceDone;
+    }
+
+    public void setPracticeDone(boolean practiceDone) {
+        this.practiceDone = practiceDone;
+    }
+
+    public String getPastPapers() {
+        return pastPapers;
+    }
+
+    public void setPastPapers(String pastPapers) {
+        this.pastPapers = pastPapers;
+    }
+
+    public int getDueInDays() {
+        return dueInDays;
+    }
+
+    public void setDueInDays(int dueInDays) {
+        this.dueInDays = dueInDays;
+    }
+
+    public String getRelatedLinks() {
+        return relatedLinks;
+    }
+
+    public void setRelatedLinks(String relatedLinks) {
+        this.relatedLinks = relatedLinks;
+    }
+
+    public String getColorTag() {
+        return colorTag;
+    }
+
+    public void setColorTag(String colorTag) {
+        this.colorTag = colorTag;
+    }
+
+    public String getBlurbNotes() {
+        return blurbNotes;
+    }
+
+    public void setBlurbNotes(String blurbNotes) {
+        this.blurbNotes = blurbNotes;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public String getMindMapName() {
+        return mindMapName;
+    }
+
+    public void setMindMapName(String mindMapName) {
+        this.mindMapName = mindMapName;
+    }
 }
+
+
