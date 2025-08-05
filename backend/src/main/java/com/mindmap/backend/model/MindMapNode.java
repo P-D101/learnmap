@@ -2,12 +2,17 @@
 package com.mindmap.backend.model;
 
 import java.util.UUID;
+//import com.mindmap.backend.model.Position;
 
+//import org.springframework.data.neo4j.core.schema.CompositeProperty;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+//import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Node("Node")
 public class MindMapNode {
 
@@ -28,6 +33,10 @@ public class MindMapNode {
 
     private LocalDate dateCreated;
     private String mindMapName;
+    private double x;
+    private double y;
+    //@CompositeProperty
+    //private Position position; 
 
     public MindMapNode() {
         this.id = UUID.randomUUID().toString();
@@ -39,6 +48,10 @@ public class MindMapNode {
                        String mindMapName) {
         this.id = id;
         //this.id = UUID.randomUUID().toString();
+        //this.position = position;
+
+        this.x = x;
+        this.y = y;        
         this.mainTopic = mainTopic;
         this.practiceDone = practiceDone;
         this.pastPapers = pastPapers;
@@ -53,6 +66,28 @@ public class MindMapNode {
     }
 
     // Getters and setters here...
+
+    /*public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }*/
+
+    public double getX() {
+        return x;
+    }
+    public void setX(double x) {
+        this.x = x;
+    }
+    public double getY() {
+        return y;
+    }
+    public void setY(double y) {
+        this.y = y;
+    }
+
 
     public String getId() {
         return id;
