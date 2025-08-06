@@ -394,9 +394,25 @@ const onNodesChange = useCallback((changes) => {
     []
   );
   
-  const onConnect = useCallback(
+  /*const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     []
+  );*/
+  //const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  //const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+  const onConnect = useCallback(
+    (params) => {
+      const label = prompt("Enter a label for this edge:");
+      const newEdge = {
+        ...params,
+        label,
+        id: `${params.source}-${params.target}-${Date.now()}`,
+        type: "default", // this can be a custom edge type later
+      };
+      setEdges((eds) => addEdge(newEdge, eds));
+    },
+    [setEdges]
   );
 
   return (
