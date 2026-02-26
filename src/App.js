@@ -129,7 +129,7 @@ const initialEdges = [
   { id: 'e1-2', source: '1', target: '2' },
   { id: 'e1-3', source: '1', target: '3' },
 ];
-function MindmapGraph({ nodes, edges, onNodesChange, onEdgesChange, onConnect, onSelectionChange }) {
+function MindmapGraph({ nodes, edges, onNodesChange, onEdgesChange, onConnect, onSelectionChange, onNodeDragStop }) {
 
 
   return (
@@ -157,6 +157,7 @@ function MindmapGraph({ nodes, edges, onNodesChange, onEdgesChange, onConnect, o
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onSelectionChange={onSelectionChange}
+        onNodeDragStop={onNodeDragStop}
         fitView>
       
     <MiniMap zoomable pannable nodeStrokeColor={n => '#609EAF'} nodeColor={n => '#F0F6FF'} />
@@ -224,9 +225,19 @@ export default function App() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
+  const onNodeDragStop = useCallback(async(event, node) => {
+  fetch(`/nodes/${node.id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      x: node.position.x,
+      y: node.position.y,
+    }),
+  }).catch(err => console.error("Failed to save node position:", err));
+}, []);
 
 
-useEffect(() => {
+/*useEffect(() => {
   fetch('/nodes')
     .then(res => res.json())
     .then(data => {
@@ -239,6 +250,22 @@ useEffect(() => {
       setNodes(safeNodes);
     })
     .catch(err => console.error('Error fetching nodes:', err));
+}, []);*/
+
+useEffect(() => {
+  fetch('/edges')
+    .then(res => res.json())
+    .then(data => {
+      const formattedEdges = data.map((edge) => ({
+        id: `${edge.sourceNodeId}-${edge.targetNodeId}-${edge.id}`,
+        source: edge.sourceNodeId.toString(),
+        target: edge.targetNodeId.toString(),
+        label: edge.label,
+        type: 'default', // or your custom edge type
+      }));
+      setEdges(formattedEdges);
+    })
+    .catch(err => console.error('Error fetching edges:', err));
 }, []);
 
 
@@ -325,6 +352,9 @@ const handleDeleteSelected = () => {
   .catch(err => console.error('Error deleting nodes:', err));
 };
 
+
+
+
 //new code here
 const onNodesChange = useCallback((changes) => {
   setNodes((nds) => {
@@ -401,7 +431,7 @@ const onNodesChange = useCallback((changes) => {
   //const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   //const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  const onConnect = useCallback(
+  /*const onConnect = useCallback(
     (params) => {
       const label = prompt("Enter a label for this edge:");
       const newEdge = {
@@ -413,7 +443,41 @@ const onNodesChange = useCallback((changes) => {
       setEdges((eds) => addEdge(newEdge, eds));
     },
     [setEdges]
-  );
+  );*/
+
+  const onConnect = useCallback(
+  async (params) => {
+    const label = prompt("Enter a label for this edge:");
+    const newEdge = {
+      ...params,
+      label,
+      id: `${params.source}-${params.target}-${Date.now()}`,
+      type: "default",
+    };
+
+    // 1. Update UI immediately
+    setEdges((eds) => addEdge(newEdge, eds));
+
+    // 2. Send to backend
+    try {
+      await fetch("http://localhost:8080/edges", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sourceNodeId: parseInt(params.source),
+          targetNodeId: parseInt(params.target),
+          label: label ?? "", // default to empty string if null
+        }),
+      });
+    } catch (error) {
+      console.error("Failed to save edge to backend:", error);
+    }
+  },
+  [setEdges]
+);
+
 
   return (
     
@@ -445,6 +509,7 @@ const onNodesChange = useCallback((changes) => {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            onNodeDragStop={onNodeDragStop}
             onSelectionChange={({ nodes, edges }) => {
               const selected = [...(nodes || []), ...(edges || [])];
               setSelectedElements(selected);

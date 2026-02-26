@@ -3,6 +3,8 @@ package com.mindmap.backend.controller;
 
 import com.mindmap.backend.model.MindMapNode;
 import com.mindmap.backend.repository.MindMapNodeRepository;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
@@ -43,6 +45,13 @@ public class MindMapNodeController {
 
         return nodeRepository.save(node);
     }
+
+    @PatchMapping("/nodes/{id}")
+    public ResponseEntity<Void> handlePatchTemporarily(@PathVariable String id) {
+        // Just return 200 OK without doing anything for now
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping("/{id}")
     public Optional<MindMapNode> getNodeById(@PathVariable String id) {
