@@ -1,32 +1,44 @@
-# Getting Started with Create React App
+# Interactive Mind-Mapping Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> **Project Status:** Experimental / Prototype
 
-## Available Scripts
+> **Note:** This repository serves as an architectural proof-of-concept. The code is currently untested and may require environment updates or debugging to run successfully locally.
 
-In the project directory, you can run:
+ A full-stack, graph-based study tool designed to combine visual mind maps, note-taking, and spaced repetition. Users can create, connect, and manage knowledge nodes visually on an interactive canvas.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> **Notice:** The commit history for this repository was intentionally reset to start fresh for security and repository cleanup purposes. All previous development history has been consolidated into the initial commit.
 
 
+
+## 🛠 Tech Stack
+
+* **Frontend:** React, React Flow
+* **Backend:** Java, Spring Boot, REST APIs
+* **Database:** Neo4j (Spring Data Neo4j)
+
+## 📍 Architecture & Features
+
+* **Frontend Canvas:** Features custom node rendering, drag-and-drop mechanics, and node detail cards supporting topics, notes, links, and due dates.
+* **Backend API:** Structured with a clean Controller-Service-Repository pattern, exposing REST endpoints (`/nodes`, `/nodes/{id}`) for CRUD operations.
+* **Graph Integration:** Modeled with Spring Data Neo4j to manage complex relationship data structures.
+
+## 🚀 How to Run Locally
+
+1. **Clone the repo:**
+   ```bash
+   git clone [url]
+   ```
+2. **Database:** 
+   Start local Neo4j via Docker. Ensure you provide your database credentials via local environment variables (e.g., `NEO4J_PASSWORD`), as `application.properties` uses placeholders for security.
+   
+4. **Backend:** 
+   Navigate to the Spring Boot directory and run:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+5. **Frontend:** 
+   Navigate to the React directory and run:
+   ```bash
+   npm install
+   npm start
+   ```
