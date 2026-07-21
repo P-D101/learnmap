@@ -1,6 +1,6 @@
 # Interactive Mind-Mapping Web Application
 
-> **Project Status:** Experimental / Prototype
+> **Project Status:** Experimental 
 
 > **Note:** This repository serves as an architectural proof-of-concept. The code is currently untested and may require environment updates or debugging to run successfully locally.
 
