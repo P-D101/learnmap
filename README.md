@@ -2,7 +2,7 @@
 
 > **Project Status:** Experimental 
 
-> **Note:** This repository serves as an architectural proof-of-concept. The code is currently untested and may require environment updates or debugging to run successfully locally.
+> **Note:** This repository is purely experimental and was intended to be a POC. The code is currently untested and may require environment updates or debugging to run successfully locally.
 
  A full-stack, graph-based study tool designed to combine visual mind maps, note-taking, and spaced repetition. Users can create, connect, and manage knowledge nodes visually on an interactive canvas.
 
