@@ -10,19 +10,19 @@
 
 
 
-## 🛠 Tech Stack
+## Tech Stack
 
 * **Frontend:** React, React Flow
 * **Backend:** Java, Spring Boot, REST APIs
 * **Database:** Neo4j (Spring Data Neo4j)
 
-## 📍 Architecture & Features
+## Architecture & Features
 
 * **Frontend Canvas:** Features custom node rendering, drag-and-drop mechanics, and node detail cards supporting topics, notes, links, and due dates.
 * **Backend API:** Structured with a clean Controller-Service-Repository pattern, exposing REST endpoints (`/nodes`, `/nodes/{id}`) for CRUD operations.
 * **Graph Integration:** Modeled with Spring Data Neo4j to manage complex relationship data structures.
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 1. **Clone the repo:**
    ```bash
